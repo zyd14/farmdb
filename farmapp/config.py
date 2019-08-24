@@ -16,8 +16,9 @@ Special Notes:
 
 """
 DEBUG = True
-POSTGRES_URL = '127.0.0.1:5432'
-
+POSTGRES_URL = '127.0.0.1'
+POSTGRES_PORT = '5432'
+POSTGRES_USER = 'zach'
 MAIL_SERVER = 'localhost'
 MAIL_PORT = 20025
 MAIL_USE_SSL = False

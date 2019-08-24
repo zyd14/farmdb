@@ -15,4 +15,5 @@ Purpose:
 Special Notes:
 
 """
-from .views import frontend
+from .views import frontend, frontend_api
+

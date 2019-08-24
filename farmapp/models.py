@@ -19,6 +19,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Sequence, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.types import DateTime
 from sqlalchemy.dialects.postgresql import JSONB
+from marshmallow_sqlalchemy import ModelSchema
 
 metadata = MetaData()
 Base = declarative_base(metadata=metadata)
@@ -31,20 +32,25 @@ class PlantType(Base):
     __tablename__ = 'something.planted'
 
     id = Column(Integer, Sequence('plant_type_id_seq'), primary_key=True)
-    name = Column(String)
-    species = Column(String)
-    subspecies = Column(String)
-    suggested_sun_reqs = Column(JSONB)
-    suggested_harvest_reqs = Column(JSONB)
-    grown_before = Column(Boolean)
-    native_to = Column(String)
-    notes = Column(String)
+    name = Column(String, nullable=False)
+    species = Column(String, nullable=False)
+    subspecies = Column(String, nullable=True)
+    suggested_sun_reqs = Column(JSONB, nullable=True)
+    suggested_harvest_reqs = Column(JSONB, nullable=True)
+    grown_before = Column(Boolean, nullable=True)
+    native_to = Column(String, nullable=True)
+    notes = Column(String, nullable=True)
 
     def __repr__(self):
         return f"<PlantType>(id='%s', name='%s', species='%s', subspecies='%s', suggested_sun_reqs='%s', suggested_harvest_reqs='%s'," \
                " grown_before='%s', native_to='%s', notes='%s'" % (self.id, self.name, self.species, self.subspecies,
                                                                    self.suggested_sun_reqs, self.suggested_harvest_reqs,
                                                                    self.grown_before, self.native_to, self.notes)
+
+class PlantTypeSchema(ModelSchema):
+    class Meta:
+        mode = PlantType
+
 
 if __name__ == '__main__':
     get_engine()

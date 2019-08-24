@@ -18,5 +18,7 @@ Special Notes:
 
 from flask import (Blueprint, render_template, g, request, url_for,
     current_app, send_from_directory, json, redirect, make_response, abort)
+from flask_restplus import Api
 
 frontend = Blueprint('frontend', __name__, template_folder='templates')
+frontend_api = Api(frontend)

@@ -17,12 +17,17 @@ Special Notes:
 """
 import logging
 import os
+from typing import List
+
 
 from flask import Flask, Blueprint
 from flask_mail import Mail
+from flask_sqlalchemy import SQLAlchemy
 
 from farmapp.frontend import views as front_views
 from farmapp.backend import views as back_views
+
+db = SQLAlchemy()
 
 def create_app():
     app = Flask('FarmDB',
@@ -31,15 +36,20 @@ def create_app():
     mail = Mail(app)
 
     app.config.from_object("farmapp.config")
+    db.init_app(app)
 
-    blueprints = (front_views.frontend, back_views.backend)
+    blueprints = [front_views.frontend, back_views.backend]
 
     blueprints_fabric(app, blueprints)
 
     configure_logging(app)
 
-def blueprints_fabric(app: Flask, blueprint: Blueprint):
+    return app
+
+
+def blueprints_fabric(app: Flask, blueprint: List[Blueprint]):
     for b in blueprint:
+
         app.register_blueprint(b)
 
 def configure_logging(app):
@@ -84,4 +94,5 @@ def configure_logging(app):
     # app.logger.addHandler(mail_handler)
 
 if __name__ == '__main__':
-    create_app()
+    app = create_app()
+    app.run()
