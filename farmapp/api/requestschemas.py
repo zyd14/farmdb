@@ -1,21 +1,3 @@
-"""
-
-Project: farmdb
-
-File Name: requestschemas
-
-Author: Zachary Romer, zach@scharp.org
-
-Creation Date: 8/24/19
-
-Version: 1.0
-
-Purpose:
-
-Special Notes:
-
-"""
-
 from flask_marshmallow.sqla import ModelSchema
 from marshmallow import fields, post_load
 from farmapp.models import PlantType

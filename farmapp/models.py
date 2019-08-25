@@ -26,6 +26,7 @@ Base = declarative_base(metadata=metadata)
 
 def get_engine():
     engine = create_engine('postgresql://zach:buttmudd14@localhost:5432/fastq_registrar_dev', echo=True)
+    return engine
 
 class PlantType(Base):
 

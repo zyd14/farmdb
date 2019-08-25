@@ -15,7 +15,6 @@ Purpose:
 Special Notes:
 
 """
-import logging
 import os
 from typing import List
 
@@ -23,29 +22,30 @@ from typing import List
 from flask import Flask, Blueprint
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_restplus import Api
 from farmapp.frontend import views as front_views
-from farmapp.backend import views as back_views
+from farmapp.api import views as api_views
 
-db = SQLAlchemy()
+
 
 def create_app():
     app = Flask('FarmDB',
                 static_folder=os.path.join(os.path.dirname(__file__), "..", "static"),
                 template_folder="templates",)
     mail = Mail(app)
+    db = SQLAlchemy(app)
+    api = Api(app)
 
     app.config.from_object("farmapp.config")
     db.init_app(app)
 
-    blueprints = [front_views.frontend, back_views.backend]
+    blueprints = [front_views.frontend, api_views.backend]
 
     blueprints_fabric(app, blueprints)
 
     configure_logging(app)
 
-    return app
-
+    return app, db, api
 
 def blueprints_fabric(app: Flask, blueprint: List[Blueprint]):
     for b in blueprint:
@@ -93,6 +93,8 @@ def configure_logging(app):
     # )
     # app.logger.addHandler(mail_handler)
 
+app, db, api = create_app()
+
 if __name__ == '__main__':
-    app = create_app()
-    app.run()
+
+    api.app.run(debug=True)
