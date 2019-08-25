@@ -1,5 +1,4 @@
 from flask import Blueprint, flash, render_template, current_app, request
-from flask_restplus import Api, Namespace, Resource
 
 
 from farmapp.frontend.forms import PlantTypeInputForm

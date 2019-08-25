@@ -26,26 +26,20 @@ from flask_restplus import Api
 from farmapp.frontend import views as front_views
 from farmapp.api import views as api_views
 
+from farmapp.setup_app import api, app
 
+blueprints = [front_views.frontend, api_views.backend]
 
-def create_app():
-    app = Flask('FarmDB',
-                static_folder=os.path.join(os.path.dirname(__file__), "..", "static"),
-                template_folder="templates",)
-    mail = Mail(app)
-    db = SQLAlchemy(app)
-    api = Api(app)
-
-    app.config.from_object("farmapp.config")
-    db.init_app(app)
-
-    blueprints = [front_views.frontend, api_views.backend]
-
-    blueprints_fabric(app, blueprints)
-
-    configure_logging(app)
-
-    return app, db, api
+# def create_app():
+#     app = Flask('FarmDB',
+#                 static_folder=os.path.join(os.path.dirname(__file__), "..", "static"),
+#                 template_folder="templates",)
+#     app.config.from_object("farmapp.config")
+#     mail = Mail(app)
+#
+#     api = Api(app)
+#
+#     return app, api
 
 def blueprints_fabric(app: Flask, blueprint: List[Blueprint]):
     for b in blueprint:
@@ -93,8 +87,13 @@ def configure_logging(app):
     # )
     # app.logger.addHandler(mail_handler)
 
-app, db, api = create_app()
+#app, api = create_app()
+
 
 if __name__ == '__main__':
+
+    blueprints_fabric(app, blueprints)
+
+    configure_logging(app)
 
     api.app.run(debug=True)

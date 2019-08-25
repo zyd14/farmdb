@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restplus import Api
 from flask_mail import Mail
@@ -10,6 +12,8 @@ def _seutp_app():
                 template_folder="templates", )
     mail = Mail(app)
     db = SQLAlchemy(app)
+    db.create_all()
+
     api = Api(app)
 
     app.config.from_object("farmapp.config")
