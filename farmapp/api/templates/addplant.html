@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Add a new category of plant</h1>
+<form action="", method="post", novalidate>
+    {% for field in form._fields %}
+        {% if field != "csrf_token" %}
+        <p>
+    <h4>{{ field }}</h4>
+    {{ form._fields[field](size=32) }}
+        </p>
+        {% endif %}
+    {% endfor %}
+    <p>{{ form.submit() }}</p>
+
+    </form>
+{% endblock %}

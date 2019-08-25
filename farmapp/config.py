@@ -18,3 +18,4 @@ MAIL_USERNAME = 'romerzs14@gmail.com'
 
 LOG_FOLDER = 'logs'
 
+SECRET_KEY = os.urandom(32)

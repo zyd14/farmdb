@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, render_template, current_app
+from flask import Blueprint, flash, render_template, current_app, request
 from flask_restplus import Api, Namespace, Resource
 
 
@@ -7,23 +7,15 @@ from farmapp.models import PlantType
 
 
 backend = Blueprint('backend', __name__, url_prefix='/backend', template_folder='templates')
-api = Api(backend)
-ns_api = api.namespace('plants', description='Plants related operations')
 
 
-class PlantTypeResource(Resource):
+@backend.route('/species/add', methods=['GET', 'POST'])
+def add_plant_type():
 
-    def get(self):
-        return render_template('addplant.html')
+    form = PlantTypeInputForm()
 
-    def post(self):
-        return self.add_plant_type()
-
-    def add_plant_type(self):
-
-        form = PlantTypeInputForm()
-
-        if form.validate_on_submit():
+    if request.method == 'POST':
+        if form.validate():
             plant_type = PlantType(
                 name=form.name.data,
                 species=form.species.data,
@@ -36,12 +28,11 @@ class PlantTypeResource(Resource):
             current_app.db.session.add(plant_type)
             current_app.db.session.commit()
             flash('Created new plant type')
-        return render_template('addplant.html')
+    return render_template('addplant.html', form=form)
 
 
         #Else return back to empty form
+def unpack_to_html(form: PlantTypeInputForm):
 
-
-ns_api.add_resource(PlantTypeResource, '/species/add', endpoint='/plants/species/add')
-
-
+    for fields in form._fields:
+        pass

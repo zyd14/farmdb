@@ -1,16 +1,10 @@
 from wtforms.validators import DataRequired, Length
-from flask_wtf import FlaskForm
-from wtforms import (
-    StringField,
-    TextAreaField,
-    SubmitField,
-    BooleanField
-)
+from wtforms import Form, StringField, BooleanField, TextAreaField, SubmitField
 
 standard_validators = [DataRequired(), Length(0, 255)]
 
 
-class PlantTypeInputForm(FlaskForm):
+class PlantTypeInputForm(Form):
 
     name = StringField('Name', validators=standard_validators)
     species = StringField('Species', validators=standard_validators)
