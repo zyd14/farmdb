@@ -6,7 +6,7 @@ POSTGRES_USER = 'zach'
 POSTGRES_DB = 'farmdb'
 POSTGRES_PW = os.getenv('FARMDB_PG_PW')
 
-DB_URL = 'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
+DB_URL = 'postgresql://zach:buttmudd14@localhost:5432/farmdb'
 
 SQLALCHEMY_DATABASE_URI = DB_URL
 SQLALCHEMY_TRACK_MODIFICATIONS = False

@@ -20,26 +20,14 @@ from typing import List
 
 
 from flask import Flask, Blueprint
-from flask_mail import Mail
-from flask_sqlalchemy import SQLAlchemy
-from flask_restplus import Api
-from farmapp.frontend import views as front_views
+
 from farmapp.api import views as api_views
+from farmapp.frontend import views as front_views
 
-from farmapp.setup_app import api, app
+from farmapp.setup_app import api, app, db
 
-blueprints = [front_views.frontend, api_views.backend]
+blueprints = [front_views.frontend, api_views.plants]
 
-# def create_app():
-#     app = Flask('FarmDB',
-#                 static_folder=os.path.join(os.path.dirname(__file__), "..", "static"),
-#                 template_folder="templates",)
-#     app.config.from_object("farmapp.config")
-#     mail = Mail(app)
-#
-#     api = Api(app)
-#
-#     return app, api
 
 def blueprints_fabric(app: Flask, blueprint: List[Blueprint]):
     for b in blueprint:
@@ -95,5 +83,6 @@ if __name__ == '__main__':
     blueprints_fabric(app, blueprints)
 
     configure_logging(app)
+    db.create_all()
 
     api.app.run(debug=True)
