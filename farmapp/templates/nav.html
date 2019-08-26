@@ -1,0 +1,17 @@
+<div class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+
+    <a class="navbar-brand {% if url_for('frontend.index') == request.path %}active{% endif %}" href="{{ url_for('frontend.index') }}">{{ ("Site") }}</a>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li {% if url_for('frontend.index') == request.path %}class="active"{% endif %}><a href="{{ url_for('frontend.index') }}">{{ ("Splash page") }}</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li {% if url_for('frontend.page') == request.path %}class="active"{% endif %}><a href="{{ url_for('frontend.page') }}"><i class="fa fa-book"></i> {{ ("About site ") }}</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li {% if url_for('plants.add_plant_type') == request.path %}class="active"{% endif %}><a href="{{ url_for('plants.add_plant_type') }}"><i class="fa fa-book"></i> {{ ("Add plant ") }}</a></li>
+    </ul>
+  </div><!--/.nav-collapse -->
+</div>

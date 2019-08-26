@@ -1,8 +1,8 @@
-from flask import Blueprint, flash, render_template, current_app, request, g
+from flask import Blueprint, flash, render_template, current_app, request, jsonify
 from flask_restplus import Api
 
 from farmapp.frontend.forms import PlantTypeInputForm
-from farmapp.models import PlantType
+from farmapp.models import PlantType, PlantTypeSchema
 from farmapp.setup_app import get_db_session
 
 plants = Blueprint('plants', __name__, url_prefix='/plants', template_folder='templates')
@@ -30,17 +30,10 @@ def add_plant_type():
     return render_template('addplant.html', form=form)
 
 
-
-
-        #Else return back to empty form
-def unpack_to_html(form: PlantTypeInputForm):
-
-    for fields in form._fields:
-        pass
-
 @plants.route('/view', methods=['GET'])
 def get_plant_types():
     db = get_db_session()
     plants = db.session.query(PlantType).all()
+    data = PlantTypeSchema().dump(plants)
 
-    return render_template('allplants.html', form=plants)
+    return jsonify(data), 201

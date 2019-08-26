@@ -43,7 +43,7 @@ class PlantType(db.Model):
 
 class PlantTypeSchema(ModelSchema):
     class Meta:
-        mode = PlantType
+        model = PlantType
 
 class Planted(db.Model):
 
