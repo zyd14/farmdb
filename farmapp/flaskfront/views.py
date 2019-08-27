@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_restplus import Api
 
-frontend = Blueprint('frontend', __name__, template_folder='templates')
+frontend = Blueprint('flaskfront', __name__, template_folder='templates')
 frontend_api = Api(frontend)
 
 

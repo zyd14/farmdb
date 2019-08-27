@@ -1,11 +1,11 @@
 from flask import Blueprint, flash, render_template, current_app, request, jsonify
 from flask_restplus import Api
 
-from farmapp.frontend.forms import PlantTypeInputForm
+from farmapp.flaskfront.forms import PlantTypeInputForm
 from farmapp.models import PlantType, PlantTypeSchema
 from farmapp.setup_app import get_db_session
 
-plants = Blueprint('plants', __name__, url_prefix='/plants', template_folder='templates')
+plants = Blueprint('plant_types', __name__, url_prefix='/plant_types', template_folder='templates')
 api = Api(plants)
 
 @plants.route('/species/add', methods=['GET', 'POST'])

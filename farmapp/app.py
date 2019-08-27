@@ -22,7 +22,7 @@ from typing import List
 from flask import Flask, Blueprint
 
 from farmapp.api import views as api_views
-from farmapp.frontend import views as front_views
+from farmapp.flaskfront import views as front_views
 
 from farmapp.setup_app import api, app, db
 
