@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PlanttypesComponent } from './planttypes/planttypes.component';
+import { PlantTypeFormComponent } from './plant-type-form/plant-type-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlanttypesComponent
+    PlantTypeFormComponent
   ],
   imports: [
     BrowserModule,
